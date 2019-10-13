@@ -1,20 +1,20 @@
 {
-  "name": "inventory-system",
+  "name": "state-machine",
   "version": "1.0.0",
-  "description": "Inventory System Experiment",
+  "description": "State Machine Experiment",
   "scripts": {
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mattibun/inventory-system.git"
+    "url": "git+https://github.com/Mattibun/state-machine.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Mattibun/inventory-system/issues"
+    "url": "https://github.com/Mattibun/state-machine/issues"
   },
-  "homepage": "https://github.com/Mattibun/inventory-system#readme",
+  "homepage": "https://github.com/Mattibun/state-machine#readme",
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
