@@ -15,6 +15,8 @@ export class StateMachine {
   }
 
   change() {
+    if (this.states.length <= 1)
+      throw 'Cannot change to new state until more states are added. Must have at least two states to change.';
     this.currentState.onExit();
     this.states.pop();
     this.currentState = this.states[this.states.length - 1];
@@ -22,7 +24,12 @@ export class StateMachine {
   }
 
   add(state) {
-    this.currentState = state;
-    this.states.push(state);
+    if (this.states.length === 0) {
+      this.currentState = state;
+      this.states.push(state);
+      this.currentState.onEnter();
+    } else {
+      this.states.push(state);
+    }
   }
 }
