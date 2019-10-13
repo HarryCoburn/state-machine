@@ -14,22 +14,41 @@ export class StateMachine {
     this.currentState.render();
   }
 
-  change() {
-    if (this.states.length <= 1)
-      throw 'Cannot change to new state until more states are added. Must have at least two states to change.';
+  change(state) {
+    for (let i = this.states.length - 1; i >= 0; i--) {
+      if (this.states[i].constructor.name !== state.constructor.name) {
+        this.states[i].onExit();
+        this.states.pop();
+      } else {
+        this.currentState = this.states[i];
+        this.currentState.onEnter();
+        break;
+      }
+    }
+  }
+
+  add(state) {
+    if (state.constructor.name === this.currentState.constructor.name) {
+      console.log('Tried to change to current state to stack');
+      return;
+    }
+    let stateExists = this.states.find(stackItem => {
+      return stackItem.constructor.name === state.constructor.name;
+    });
+
+    if (stateExists === undefined) {
+      this.states.push(state);
+      this.currentState = this.states[this.states.length - 1];
+      this.currentState.onEnter();
+    } else {
+      this.change(state);
+    }
+  }
+
+  end() {
     this.currentState.onExit();
     this.states.pop();
     this.currentState = this.states[this.states.length - 1];
     this.currentState.onEnter();
-  }
-
-  add(state) {
-    if (this.states.length === 0) {
-      this.currentState = state;
-      this.states.push(state);
-      this.currentState.onEnter();
-    } else {
-      this.states.push(state);
-    }
   }
 }
